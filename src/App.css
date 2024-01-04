@@ -6,7 +6,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
+  background: rgb(0,0,0);
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(45,0,245,0) 50%);
   top: calc(100vh - 100px);
 }
 
@@ -20,12 +21,14 @@
 .mainVideo {
   position: relative;
   width: 100vw;
+  height: 100vh;
 }
 
 .playingImg {
   height: 80%;
   aspect-ratio: auto;
-  color: red;
+  /* filter: invert(14%) sepia(81%) saturate(5675%) hue-rotate(0deg) brightness(95%) contrast(132%); */
+  color: blue;
 }
 
 .playpause {
