@@ -1,0 +1,42 @@
+.bottomBar {
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  top: calc(100vh - 100px);
+}
+
+.bottomContentWrapper {
+  position: relative;
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+}
+
+.mainVideo {
+  position: relative;
+  width: 100vw;
+}
+
+.playingImg {
+  height: 80%;
+  aspect-ratio: auto;
+  color: red;
+}
+
+.playpause {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  aspect-ratio: 1 / 1;
+  border: 4px solid black;
+  background-color: transparent;
+  border-radius: 10000px;
+  align-self: center;
+  cursor: pointer;
+}
