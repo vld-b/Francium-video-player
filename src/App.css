@@ -1,14 +1,15 @@
 .bottomBar {
   position: fixed;
   width: 100vw;
-  height: 100px;
+  height: 125px;
+  bottom: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: rgb(0,0,0);
   background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(45,0,245,0) 50%);
-  top: calc(100vh - 100px);
 }
 
 .bottomContentWrapper {
@@ -16,19 +17,14 @@
   background-color: transparent;
   height: fit-content;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
 }
 
 .mainVideo {
   position: relative;
   width: 100vw;
   height: 100vh;
-}
-
-.playingImg {
-  height: 80%;
-  aspect-ratio: auto;
-  /* filter: invert(14%) sepia(81%) saturate(5675%) hue-rotate(0deg) brightness(95%) contrast(132%); */
-  color: blue;
 }
 
 .playpause {
@@ -42,4 +38,57 @@
   border-radius: 10000px;
   align-self: center;
   cursor: pointer;
+}
+
+.playpause svg {
+  height: 80%;
+  aspect-ratio: auto;
+}
+
+.playpause svg path {
+  fill: white;
+  mix-blend-mode: difference;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.progressBar {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.progressBarProgress {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.volume {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  aspect-ratio: 1 / 1;
+  border: 4px solid black;
+  background-color: transparent;
+  border-radius: 10000px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.volumeBar {
+  display: flex;
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg);
+  width: 100px;
 }
