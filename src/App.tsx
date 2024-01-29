@@ -1,14 +1,11 @@
 import './App.css'
-import vidOrigin from "./clip.mp4";
 import { Signal, createSignal, createEffect, Show, untrack, onMount } from 'solid-js';
 import { invoke } from "@tauri-apps/api/tauri"
 
 let [playing, setPlaying]: Signal<boolean> = createSignal(false);
-let [vidSrc, setVidSrc]: Signal<string> = createSignal(vidOrigin);
 let [videoComponent, setVideoComponent] = createSignal<HTMLVideoElement>();
 let [progressSlider, setProgressSlider] = createSignal<HTMLInputElement>(); 
 let [audioSlider, setAudioSlider] = createSignal<HTMLInputElement>();
-setVidSrc(vidOrigin);
 
 document.addEventListener("keydown", e => {
   e.preventDefault();
@@ -17,8 +14,11 @@ document.addEventListener("keydown", e => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  invoke<string>("transfer_vid").then(vidBase64 => {videoComponent()!.src = `data:video/mp4;base64,${vidBase64}`});
+document.addEventListener("DOMContentLoaded", async () => {
+  await invoke<string>("transfer_vid").then((vidBase64) => {
+    videoComponent()!.src = `data:video/mp4;base64,${vidBase64}`;
+    return;
+  });
 });
 
 function PlayImg() {
@@ -61,7 +61,7 @@ function App() {
   
   return (
     <>
-      <video ref={setVideoComponent} src={vidSrc()} class="mainVideo" id="mainVideo" onTimeUpdate={() => progressSlider()!.value = videoComponent()!.currentTime.toString()} onEnded={() => setPlaying(false)} autoplay />
+      <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={() => progressSlider()!.value = videoComponent()!.currentTime.toString()} onEnded={() => setPlaying(false)} autoplay />
       <div class="bottomBar">
         <input ref={setProgressSlider} type="range" name="progress" id="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
         <div class="bottomContentWrapper">
