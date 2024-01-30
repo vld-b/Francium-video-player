@@ -1,28 +1,14 @@
-## Usage
+# LVP
+## - a light-weight video player
+As the name may or may not suggest, LVP stands for "Light-weight Video Player"
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+## What it can do
+The "light" int LVP may or may not stand for the limited set of tools in this app. But really, what *should* a video player really be able to do except for playing back *videos*?
+#### It is very simple:
+It can only playback videos and, for comfort, it includes two sliders, one for volume and one for seeking throught the video.
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+# Performance
+It is yet to be very performant, considering it's in its alpha stages (maybe "light" wouldn't be the best description in terms of performance). Thought it is only a couple of megabytes in size (~3.8MB to be exact!).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm run dev`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)
+# Development
+It is written in Rust, Typescript and uses [SolidJS](https://www.solidjs.com) as its front-end framework. For its back-end, it uses [Tauri](https://tauri.app).
