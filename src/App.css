@@ -19,6 +19,24 @@
   width: fit-content;
   display: flex;
   flex-direction: row;
+  margin: auto;
+}
+
+/* Range input customization */
+input[type="range"]::-webkit-slider-runnable-track {
+  border-radius: 100000px;
+  outline: 2px white solid;
+  background-color: black;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: black;
+  background-color: black;
+  color: black;
+  border: 2px blue solid;
+  width: 200px;
 }
 
 .mainVideo {
@@ -40,21 +58,18 @@
   cursor: pointer;
 }
 
-.playpause svg {
+.playpause > svg {
   height: 80%;
   aspect-ratio: auto;
 }
 
-.playpause svg path {
+.playpause > svg > path {
   fill: white;
-  mix-blend-mode: difference;
 }
 
 .progress {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100vw;
+  margin: 0;
 }
 
 .progressBar {
@@ -91,4 +106,5 @@
   transform-origin: 50% 50%;
   transform: rotate(-90deg);
   width: 100px;
+  margin: 0;
 }

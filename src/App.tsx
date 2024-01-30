@@ -7,6 +7,11 @@ let [videoComponent, setVideoComponent] = createSignal<HTMLVideoElement>();
 let [progressSlider, setProgressSlider] = createSignal<HTMLInputElement>(); 
 let [audioSlider, setAudioSlider] = createSignal<HTMLInputElement>();
 
+window.oncontextmenu = (e) => {
+  e.preventDefault();
+  return;
+};
+
 document.addEventListener("keydown", e => {
   e.preventDefault();
   if (e.key == " ") {
@@ -63,7 +68,7 @@ function App() {
     <>
       <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={() => progressSlider()!.value = videoComponent()!.currentTime.toString()} onEnded={() => setPlaying(false)} autoplay />
       <div class="bottomBar">
-        <input ref={setProgressSlider} type="range" name="progress" id="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
+        <input ref={setProgressSlider} type="range" name="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
         <div class="bottomContentWrapper">
           <button class="playpause" id="playpause" onClick={() => setPlaying(!playing())}>
             <Show when={playing()} fallback={<PauseImg />}>
