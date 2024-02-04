@@ -95,7 +95,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .utilControl {
-  height: 125px; /* This value must be the same as the height of the bottom bar. Didn't bother making a variable*/
+  height: 150px; /* This value must be the same as the height of the bottom bar. Didn't bother making a variable*/
   width: 100vw;
   position: fixed;
   bottom: 0;
