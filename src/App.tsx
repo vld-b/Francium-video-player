@@ -67,6 +67,7 @@ function App() {
   return (
     <>
       <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={() => progressSlider()!.value = videoComponent()!.currentTime.toString()} onEnded={() => setPlaying(false)} autoplay />
+      <div class="utilControl"></div>
       <div class="bottomBar">
         <input ref={setProgressSlider} type="range" name="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
         <div class="bottomContentWrapper">
