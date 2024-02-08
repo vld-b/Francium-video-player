@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css"
 import { Signal, createSignal, createEffect, Show, untrack, onMount } from 'solid-js';
 import { invoke } from "@tauri-apps/api/tauri"
 
@@ -6,6 +6,8 @@ let [playing, setPlaying]: Signal<boolean> = createSignal(false);
 let [videoComponent, setVideoComponent] = createSignal<HTMLVideoElement>();
 let [progressSlider, setProgressSlider] = createSignal<HTMLInputElement>(); 
 let [audioSlider, setAudioSlider] = createSignal<HTMLInputElement>();
+let [currentTimeLabel, setCurrentTimeLabel] = createSignal<HTMLLabelElement>();
+let [durationLabel, setDurationLabel] = createSignal<HTMLLabelElement>();
 
 window.oncontextmenu = (e) => {
   e.preventDefault();
@@ -36,11 +38,26 @@ function PauseImg() {
   return <svg xmlns="http://www.w3.org/2000/svg" /*height="16" width="10"*/ viewBox="0 0 320 512"><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/></svg>;
 }
 
+function formatTime(time: number) {
+  return Math.floor(time/3600).toString() + ":" + Math.floor(time/60).toString() + ":" + Math.floor(time%60).toString()
+}
+
+function updateTime() {
+  let time = videoComponent()!.currentTime;
+  progressSlider()!.value = time.toString();
+  currentTimeLabel()!.innerText = formatTime(time);
+}
+
 function setVolume() {
   const audioSliderValue: string = audioSlider()?.value!;
   const vid = videoComponent();
   if(!vid || !audioSlider) return;
   vid.volume = parseInt(audioSliderValue) / 100;
+}
+
+function setupComponents() {
+  progressSlider()!.max = videoComponent()!.duration.toString();
+  durationLabel()!.innerText = formatTime(videoComponent()!.duration);
 }
 
 function App() {
@@ -61,15 +78,19 @@ function App() {
     const vid = videoComponent();
     const slidr = progressSlider();
     if (!vid ||!slidr) return;
-    videoComponent()?.addEventListener("canplay", () => progressSlider()!.max = videoComponent()!.duration.toString());
+    videoComponent()?.addEventListener("canplay", setupComponents);
   });
   
   return (
     <>
-      <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={() => progressSlider()!.value = videoComponent()!.currentTime.toString()} onEnded={() => setPlaying(false)} autoplay />
+      <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={updateTime} onEnded={() => setPlaying(false)} autoplay />
       <div class="utilControl"></div>
       <div class="bottomBar">
-        <input ref={setProgressSlider} type="range" name="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
+        <div class="progressComponents">
+          <label ref={setCurrentTimeLabel} class="timeLabel">00:00</label>
+          <input ref={setProgressSlider} type="range" name="progress" class="progress" step="0.1" onInput={() => {videoComponent()!.currentTime = parseFloat(progressSlider()!.value)}} />
+          <label ref={setDurationLabel} class="timeLabel">00:00</label>
+        </div>
         <div class="bottomContentWrapper">
           <button class="playpause" id="playpause" onClick={() => setPlaying(!playing())}>
             <Show when={playing()} fallback={<PauseImg />}>
