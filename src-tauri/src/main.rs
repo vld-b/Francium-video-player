@@ -6,7 +6,7 @@ use std::fs;
 use base64::{engine::general_purpose, Engine as _};
 
 #[tauri::command]
-fn transfer_vid() -> String {
+async fn transfer_vid() -> String {
   let args: Vec<String> = env::args().collect();
   if args.len() == 2 {
     let path: String = args[1].clone();
