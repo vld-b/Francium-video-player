@@ -83,6 +83,7 @@ function App() {
   
   return (
     <>
+      <div data-tauri-drag-region class="dragBar" />
       <video ref={setVideoComponent} class="mainVideo" id="mainVideo" onTimeUpdate={updateTime} onEnded={() => setPlaying(false)} autoplay />
       <div class="utilControl"></div>
       <div class="bottomBar">
