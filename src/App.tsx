@@ -1,6 +1,7 @@
 import "./App.css"
 import { Signal, createSignal, createEffect, Show, untrack, onMount } from 'solid-js';
 import { invoke } from "@tauri-apps/api/tauri"
+import  { convertFileSrc } from "@tauri-apps/api/tauri";
 
 let [playing, setPlaying]: Signal<boolean> = createSignal(false);
 let [videoComponent, setVideoComponent] = createSignal<HTMLVideoElement>();
@@ -22,9 +23,8 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await invoke<string>("transfer_vid").then((vidBase64) => {
-    videoComponent()!.src = `data:video/mp4;base64,${vidBase64}`;
-    return;
+  await invoke<string>("transfer_vid").then((vidSrc) => {
+    videoComponent()!.src = convertFileSrc(vidSrc);
   });
 });
 
