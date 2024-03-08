@@ -1,8 +1,3 @@
-html, body {
-  border-radius: 50px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
 .bottomBar {
   position: fixed;
   width: 100vw;
@@ -13,14 +8,14 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,1) 100%);
-  transform: translate(0, 110%);
-  transition: transform .4s ease;
+  background: transparent;
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
 }
 
 .bottomBar:hover {
-  transform: translate(0, 0);
+  opacity: 1;
 }
 
 .bottomContentWrapper {
@@ -33,12 +28,27 @@ html, body {
   margin: auto;
 }
 
+.closeBtn:hover {
+  background-color: red !important;
+}
+
 .dragBar {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(36, 36, 36, 0.2);
+  backdrop-filter: blur(4px);
+  height: 30px;
+  width: 100vw;
+  z-index: 10; /* Should always be on top */
+}
+
+.dragBarAccenter {
   position: fixed;
   background-color: transparent;
   height: 30px;
   width: 100vw;
-  z-index: 10; /* Should always be on top */
+  border-bottom: solid white 2px;
 }
 
 /* Range input customization */
@@ -139,4 +149,38 @@ input[type="range"]::-webkit-slider-thumb {
   transform: rotate(-90deg);
   width: 100px;
   margin: 0;
+}
+
+.windowControls {
+  height: 100%;
+  width: fit-content;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.windowControl {
+  height: auto;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border: none;
+  transition: background-color .4s ease-in-out;
+}
+
+.windowControl:hover {
+  background-color: white;
+}
+
+.windowControl > svg {
+  height: 25px;
+  aspect-ratio: 1 / 1;
+  fill: white;
+  transition: fill .4s ease-in-out;
+}
+
+.windowControl:hover > svg {
+  fill: black;
 }

@@ -22,7 +22,12 @@
       },
       "window": {
         "all": false,
-        "startDragging": true
+        "startDragging": true,
+        "minimize": true,
+        "maximize": true,
+        "close": true,
+        "unmaximize": true,
+        "setFullscreen": true
       }
     },
     "cli": {
@@ -75,6 +80,7 @@
     },
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
         "height": 600,
         "resizable": true,
