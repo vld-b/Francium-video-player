@@ -34,21 +34,33 @@
 
 .dragBar {
   position: fixed;
+  top: -30px;
+  left: 0;
   display: flex;
   justify-content: flex-end;
-  background-color: rgba(36, 36, 36, 0.2);
-  backdrop-filter: blur(4px);
+  background-color: rgba(75, 75, 75, 0.2);
   height: 30px;
   width: 100vw;
   z-index: 10; /* Should always be on top */
+  transition: top .4s ease-in-out;
+}
+
+.dragBar:hover {
+  top: 0;
 }
 
 .dragBarAccenter {
   position: fixed;
+  top: 0;
+  left: 0;
   background-color: transparent;
   height: 30px;
   width: 100vw;
-  border-bottom: solid white 2px;
+  z-index: 5; /* Should be above everything except the .dragBar */
+}
+
+.dragBarAccenter:hover ~ .dragBar {
+  top: 0;
 }
 
 /* Range input customization */
@@ -172,6 +184,14 @@ input[type="range"]::-webkit-slider-thumb {
 
 .windowControl:hover {
   background-color: white;
+}
+
+.windowControl:disabled {
+  background-color: gray !important;
+}
+
+.windowControl:disabled > svg {
+  fill: red !important;
 }
 
 .windowControl > svg {

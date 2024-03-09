@@ -7,8 +7,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "LVP",
-    "version": "0.3.0"
+    "productName": "Francium Video Player",
+    "version": "0.4.0"
   },
   "tauri": {
     "pattern": {
@@ -27,7 +27,8 @@
         "maximize": true,
         "close": true,
         "unmaximize": true,
-        "setFullscreen": true
+        "setFullscreen": true,
+        "setResizable": true
       }
     },
     "cli": {
@@ -54,7 +55,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.lvp.vld-b",
+      "identifier": "com.francium.vld-b",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -84,7 +85,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "LVP",
+        "title": "Francium Video Player",
         "width": 800,
         "minHeight": 480,
         "minWidth": 640,

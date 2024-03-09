@@ -10,8 +10,12 @@ let [progressSlider, setProgressSlider] = createSignal<HTMLInputElement>();
 let [audioSlider, setAudioSlider] = createSignal<HTMLInputElement>();
 let [currentTimeLabel, setCurrentTimeLabel] = createSignal<HTMLLabelElement>();
 let [durationLabel, setDurationLabel] = createSignal<HTMLLabelElement>();
-let [windowMaximized, setWindowMaximized] = createSignal(await appWindow.isMaximized());
-let [windowFullscreen, setWindowFullscreen] = createSignal(await appWindow.isFullscreen());
+let [maximizeBtn, setMaximizeBtn] = createSignal<HTMLButtonElement>();
+let [windowMaximized, setWindowMaximized] = createSignal(false);
+let [fullscreenBtn, setFullscreenBtn] = createSignal<HTMLButtonElement>();
+let [windowFullscreen, setWindowFullscreen] = createSignal(false);
+let [dragBar, setDragBar] = createSignal<HTMLDivElement>();
+let canMaximiseUnmaximise: boolean = true;
 
 window.oncontextmenu = (e) => {
   e.preventDefault();
@@ -107,9 +111,11 @@ function App() {
   });
 
   // Effect to update the progress slider max value to the duration of the clip
-  onMount(() => {
+  onMount(async () => {
     const vid = videoComponent();
     const slidr = progressSlider();
+    setWindowMaximized(await appWindow.isMaximized());
+    setWindowFullscreen(await appWindow.isFullscreen());
     if (!vid || !slidr) return;
     videoComponent()?.addEventListener("canplay", setupComponents);
   });
@@ -117,15 +123,26 @@ function App() {
   return (
     <>
       <div class="dragBarAccenter" />
-      <div data-tauri-drag-region class="dragBar">
+      <div data-tauri-drag-region ref={setDragBar} class="dragBar">
         <div class="windowControls">
-          <button class="windowControl" onClick={() => {
+          <button class="windowControl" ref={setFullscreenBtn} onClick={() => {
             if (windowFullscreen()) {
+              // Conditions for not fulscreen
               appWindow.setFullscreen(false);
               setWindowFullscreen(false);
+              dragBar()!.dataset.tauriDragRegion = "";
+              appWindow.setResizable(true);
+              appWindow.setMaximizable(true);
+              canMaximiseUnmaximise = true;
+              maximizeBtn()!.disabled = false;
             } else {
+              // Conditions for fullscreen
               appWindow.setFullscreen(true);
               setWindowFullscreen(true);
+              delete dragBar()!.dataset.tauriDragRegion;
+              appWindow.setResizable(false);
+              canMaximiseUnmaximise = false;
+              maximizeBtn()!.disabled = true;
             }
           }}>
             <Show when={windowFullscreen()} fallback={<Expand />}>
@@ -133,13 +150,15 @@ function App() {
             </Show>
           </button>
           <button class="windowControl" onClick={() => {appWindow.minimize()}}> <MinimizeIcon /> </button>
-          <button class="windowControl" onClick={() => {
-            if (windowMaximized()) {
+          <button class="windowControl" ref={setMaximizeBtn} onClick={() => {
+            if (windowMaximized() && canMaximiseUnmaximise) {
               appWindow.unmaximize();
               setWindowMaximized(false);
-            } else {
+              fullscreenBtn()!.disabled = false;
+            } else if (!windowMaximized() && canMaximiseUnmaximise) {
               appWindow.maximize();
               setWindowMaximized(true);
+              fullscreenBtn()!.disabled = true;
             }
           }}>
             <Show when={windowMaximized()} fallback={<FullscreenIcon />}>
