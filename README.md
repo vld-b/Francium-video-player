@@ -16,7 +16,7 @@ It can playback videos comfortably, giving you the options to make the videos fu
 - Done! Now just double click or open a video like you usually would and it'll open with Francium!
 
 ## Performance
-In the beginning, Francium was pretty slow, averaging a couple of seconds to load a 30-second video. Now, though, it has been optimized to load videos much faster, giving you faster loading times that before!
+In the beginning, Francium was pretty slow, averaging a couple of seconds to load a 30-second video. Now, though, it has been optimized to load videos much faster, giving you faster loading times than before!
 
 ## Development
 For its front-end it uses Typescript with the [SolidJS](https://www.solidjs.com) framework and for its back-end it uses Rust with the [Tauri](https://tauri.app) framework, both super performant!
